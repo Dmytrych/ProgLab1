@@ -13,14 +13,7 @@ namespace ProgLab_1
     {
         static void Main(string[] args)
         {
-            Table budgetTable;
-            string[] files;
-            string path;
-            budgetTable = new Table();
-
-            path = CsvIO.GetPath();
-            files = CsvIO.GetFiles(path);
-            CsvIO.ParseToTable(path, files, budgetTable);
+          
           
             
         }

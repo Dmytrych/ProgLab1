@@ -7,42 +7,38 @@ using System.IO;
 
 namespace ProgLab_1
 {
-    static class CsvIO
+    class CsvIO
     {
-        public static string GetPath()
+        public string[] files { get; private set; }
+        private string dirPath;
+        public CsvIO(string dirPath)
         {
-            Console.WriteLine("Введите путь к папке с входными данными\n");
-            string path = Console.ReadLine();
-            return path;
+            this.dirPath = dirPath;
+            files = Directory.GetFiles(dirPath, ".csv");
         }
-        public static string[] GetFiles(string path)
+        public void ParseToTable(Table table)
         {
-            string[] files = Directory.GetFiles(path, ".csv");
-            return files;
-        }
-
-        public static void ParseToTable(string path, string[] files, Table budgetTable){
-
+            int[] grades = new int[5];
+            string[] line;
+            StreamReader reader;
             foreach (string fileName in files)
             {
-                StreamReader reader = new StreamReader(path + "/" + fileName);
-                int num = Convert.ToInt32(reader.ReadLine());
-                for (int i = 0; i<num; i++)
+                reader = new StreamReader(dirPath + "/" + fileName);
+                int studentCount = Convert.ToInt32(reader.ReadLine());
+                for (int i = 0; i < studentCount; i++)
                 {
-                    string[] tempStudent = reader.ReadLine().Split(new char[',']);
-                    int[] grades = new int[5];
-                    for (int k = 0; k<grades.Length; k++)
+                    line = reader.ReadLine().Split(new char[',']);
+                    for (int k = 0; k < grades.Length; k++)
                     {
-                        grades[k] = Convert.ToInt32(tempStudent[i + 1]);
+                        grades[k] = Convert.ToInt32(line[i + 1]);
                     }
-                    bool contract = Convert.ToBoolean(tempStudent[6]);
-                    Student temp = new Student(tempStudent[0], grades, contract);
+                    bool contract = Convert.ToBoolean(line[6]);
+                    Student tempStudent = new Student(line[0], grades, contract);
                     if (!contract)
                     {
-                        budgetTable.AddStudent(temp);
+                        table.AddStudent(tempStudent);
                     }
                 }
             }
-            }
+        }
     }
-}
