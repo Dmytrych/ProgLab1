@@ -13,5 +13,12 @@ namespace ProgLab_1
         {
             Students.Add(student);
         }
+        public void Sort(Table table)
+        {
+            for (int i = 0; i < table.Students.Count; i++)
+            {
+
+            }
+        }
     }
 }
