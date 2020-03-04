@@ -19,13 +19,13 @@ namespace ProgLab_1
         }
         public void QuickSort()
         {
-            Student markStudent = Students[Students.Count];
+            Student markStudent = Students[Students.Count-1];
             for(int j = 0; j < Students.Count; j++)
             {
-                for (int i = 0; i < Students.Count; i++)
+                for (int i = 1; i < Students.Count; i++)
                 {
-                    if (Students[i].Avg < Students[i + 1].Avg)
-                        Swap(i, i + 1);
+                    if (Students[i-1].Avg < Students[i].Avg)
+                        Swap(i-1, i);
                 }
             }
         }
@@ -35,14 +35,14 @@ namespace ProgLab_1
             Students[studIndex1] = Students[studIndex2];
             Students[studIndex2] = temp;
         }
-        public void PrintTable()
+        public void ShowMinMark()
         {
-            int count = 0;
-            foreach(Student student in Students)
-            {
-                count++;
-                Console.WriteLine(count + ": " + student.Avg);
-            }
+           Console.WriteLine(Students[Students.Count - 1].Avg);
+        }
+        public void DekanatPublishedRating() // Откидывает из таблицы всех лохов-нестипендиантов, как мы :)
+        {
+            int stipendiantCount = Convert.ToInt32(Math.Floor(Convert.ToDouble(Students.Count) * 0.4));
+            Students.RemoveRange(stipendiantCount,Students.Count-stipendiantCount);
         }
     }
 }

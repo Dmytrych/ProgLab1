@@ -19,7 +19,11 @@ namespace ProgLab_1
             path = Console.ReadLine();
             CsvIO csvReader = new CsvIO(path);
             csvReader.ParseToTable(budgetTable);
+            budgetTable.QuickSort();
+            budgetTable.DekanatPublishedRating();
             csvReader.SaveTable(budgetTable, path);
+            budgetTable.ShowMinMark();
+            Console.ReadKey();
         }
     }
 

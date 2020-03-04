@@ -25,7 +25,7 @@ namespace ProgLab_1
             {
                 reader = new StreamReader(fileName);
                 int studentCount = Convert.ToInt32(reader.ReadLine());
-                for (int i = 0; i<studentCount; i++)
+                for (int i = 0; i < studentCount; i++)
                 {
                     line = reader.ReadLine().Split(';');
                     grades = new int[5];
@@ -39,17 +39,20 @@ namespace ProgLab_1
                         table.AddStudent(new Student(line[0], grades, contract));
                     }
                 }
+                reader.Close();
             }
         }
         public void SaveTable(Table table, string dirPath)
         {
-            StreamWriter writer = new StreamWriter(dirPath + "rating.csv");
+            StreamWriter writer = new StreamWriter(dirPath);
             foreach (Student student in table.Students)
             {
-                writer.WriteLine($"{0};{1}", student.Name, student.Avg);
+                writer.WriteLine($"{student.Name};{student.Avg}");
             }
+            writer.Flush();
+            writer.Close();
         }
+
+
     }
-
-
 }
