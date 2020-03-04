@@ -41,6 +41,14 @@ namespace ProgLab_1
                 }
             }
         }
+        public void SaveTable(Table table, string dirPath)
+        {
+            StreamWriter writer = new StreamWriter(dirPath + "rating.csv");
+            foreach (Student student in table.Students)
+            {
+                writer.WriteLine($"{0};{1}", student.Name, student.Avg);
+            }
+        }
     }
 
 

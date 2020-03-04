@@ -19,17 +19,8 @@ namespace ProgLab_1
             path = Console.ReadLine();
             CsvIO csvReader = new CsvIO(path);
             csvReader.ParseToTable(budgetTable);
-            budgetTable.PrintTable();
-            Console.WriteLine("Лохі");
-            Console.Read();
+            csvReader.SaveTable(budgetTable, path);
         }
     }
-    static class CsvWork
-    {
-        
-    }
-    class ManageTables
-    {
-            
-    }
+
 }
