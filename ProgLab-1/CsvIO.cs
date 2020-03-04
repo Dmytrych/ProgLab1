@@ -14,40 +14,31 @@ namespace ProgLab_1
         public CsvIO(string dirPath)
         {
             this.dirPath = dirPath;
-            files = Directory.GetFiles(dirPath, ".csv");
+            files = Directory.GetFiles(dirPath, "*.csv");
         }
         public void ParseToTable(Table table)
         {
-            int[] grades = new int[5];
+            int[] grades;
             string[] line;
             StreamReader reader;
             foreach (string fileName in files)
             {
-                reader = new StreamReader(dirPath + "/" + fileName);
+                reader = new StreamReader(fileName);
                 int studentCount = Convert.ToInt32(reader.ReadLine());
-                for (int i = 0; i < studentCount; i++)
+                for (int i = 0; i<studentCount; i++)
                 {
-                    line = reader.ReadLine().Split(new char[',']);
+                    line = reader.ReadLine().Split(';');
+                    grades = new int[5];
                     for (int k = 0; k < grades.Length; k++)
                     {
-                        grades[k] = Convert.ToInt32(line[i + 1]);
+                        grades[k] = Convert.ToInt32(line[k + 1]);
                     }
                     bool contract = Convert.ToBoolean(line[6]);
-                    Student tempStudent = new Student(line[0], grades, contract);
                     if (!contract)
                     {
-                        table.AddStudent(tempStudent);
+                        table.AddStudent(new Student(line[0], grades, contract));
                     }
                 }
-            }
-        }
-
-        public void SaveTable(Table table, string dirPath)
-        {
-            StreamWriter writer = new StreamWriter(dirPath+"rating.csv");
-            foreach (Student student in table.Students)
-            {
-                writer.WriteLine($"{0};{1}",student.Name,student.Avg);
             }
         }
     }
